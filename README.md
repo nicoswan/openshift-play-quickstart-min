@@ -13,7 +13,6 @@ Here the gear command implemented:
 | `gear restart` | Stop and then start the application. |
 | `gear status` | Get current application status. |
 | `gear tidy` | Remove files from $OPENSHIFT_TMP_DIR. |
-| `gear build` | Build the application from source , if PLAY2_APPLICATION_PATH doesn't point to a zip file. |
 
 _**Example:**_
 ```
