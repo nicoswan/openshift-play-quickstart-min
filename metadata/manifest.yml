@@ -9,28 +9,6 @@ Vendor: none
 Cartridge-Version: '1.0.0'
 Cartridge-Vendor: github
 Website: https://github.com/nicoswan/openshift-play-quickstart-min
-Help-Topics:
-  "Developer Center": https://www.openshift.com/developers
-Scaling:
-  Min: 1
-  Max: -1
-Group-Overrides:
-  - components:
-    - web_proxy
-Publishes:
-  get-doc-root:
-    Type: "FILESYSTEM:doc-root"
-  publish-http-url:
-    Type: "NET_TCP:httpd-proxy-info"
-  publish-gear-endpoint:
-    Type: "NET_TCP:gear-endpoint-info"
-Subscribes:
-  set-db-connection-info:
-    Type: "ENV:NET_TCP:db:connection-info"
-    Required: false
-  set-nosql-db-connection-info:
-    Type: "ENV:NET_TCP:nosqldb:connection-info"
-    Required : false
 Endpoints:
   - Private-IP-Name:   IP
     Private-Port-Name: PORT
