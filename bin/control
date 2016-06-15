@@ -85,6 +85,56 @@ function restart {
     start
 }
 
+function build {
+  # Workaround for failure in npm install when a package in package.json
+  # points to a git commit.
+  # This issue occurs because we are running in the context of a
+  # git post receive-hook
+  unset GIT_DIR
+  unset GIT_WORK_TREE
+  status
+  local B_STATUS=$?
+  if [ $B_STATUS -eq $PLAY2_STATUS_BUILDING ] ; then
+    echo "Another build process is running, build skipped"
+  elif [ -f "$PLAY2_APPLICATION_PATH" ]; then
+    > $PLAY2_DIST_FILE
+    local B_BASENAME_FILE=$(basename "$PLAY2_APPLICATION_PATH")
+    local B_EXTENSION="${B_BASENAME_FILE##*.}"
+    if [ $B_EXTENSION != "zip" ]; then
+      echo "Play2 application path is not a zip file, please check PLAY2_APPLICATION_PATH in ~/.profile file"
+      exit 2
+    else
+      echo "$PLAY2_APPLICATION_PATH" > $PLAY2_DIST_FILE
+    fi
+  elif [ -d "$PLAY2_APPLICATION_PATH" ]; then
+    > $PLAY2_DIST_FILE
+    cd ${PLAY2_APPLICATION_PATH}
+    get_num_build
+    local B_NUM_BUILD=$?
+    if [ $B_NUM_BUILD -eq 0 ]; then
+      # First build
+      echo "First build takes a while."
+      echo "At the end of build it will run start process"
+      echo "$WAIT_MESSAGE"
+      inc_num_build
+      # Call build in nohup because first run take a while.
+      nohup gear build && nohup gear start &
+    else
+      echo "Starting Play activator build process"
+      activator clean dist -Duser.home=${OPENSHIFT_DATA_DIR} &
+      local B_BUILD_PID=$!
+      echo "$B_BUILD_PID" > $PLAY2_PID_ACTIVATOR_BUILD
+      inc_num_build
+      wait
+      local B_DIST_FILE=$(find `pwd`/target/universal -name *.zip)
+      echo "$B_DIST_FILE" > $PLAY2_DIST_FILE
+    fi
+  else
+    echo "Play2 application path is not a zip file, please check PLAY2_APPLICATION_PATH in ~/.profile file"
+    exit 2
+  fi
+}
+
 function tidy {
   shopt -s dotglob
   rm -rf $OPENSHIFT_TMP_DIR/*
