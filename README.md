@@ -3,6 +3,8 @@
 # OpenShift Play Framework Cartridge
 Works with Play 2.5 and Activator : http://www.playframework.com/
 
+The cartridge 'http://cartreflect-claytondev.rhcloud.com/reflect?github=nicoswan/openshift-play-quickstart-min'
+
 ## Gear command
 Here the gear command implemented:
 
@@ -90,14 +92,14 @@ _**Note^2:**_ the first build process it takes a while, up to ~15 minutes becaus
 
 ## Tutorial
 Have a look at http://misto.ch/play-on-openshift/
-at the moment you need to use ```http://cartreflect-claytondev.rhcloud.com/reflect?github=tyrcho/openshift-cartridge-play2&commit=play-2.5.0```.
+at the moment you need to use ```http://cartreflect-claytondev.rhcloud.com/reflect?github=nicoswan/openshift-play-quickstart-min```.
 
 ## From the web site
 
 1. Go to https://openshift.redhat.com/app/console/applications
 2. Click on "Add Application…"
 3. Go to the bottom page and in Code Anything "URL to a cartridge definition" insert:
-`http://cartreflect-claytondev.rhcloud.com/reflect?github=tyrcho/openshift-cartridge-play2&commit=play-2.5.0`
+`http://cartreflect-claytondev.rhcloud.com/reflect?github=nicoswan/openshift-play-quickstart-min`
 4. Click on "Next"
 5. Define an url for the Application Name
 6. Go to the bottom page and click the button "Create Application"
@@ -111,7 +113,7 @@ at the moment you need to use ```http://cartreflect-claytondev.rhcloud.com/refle
 ## Command line (rhc)
 
 ```
-rhc app create  myappForPlay  http://cartreflect-claytondev.rhcloud.com/reflect?github=tyrcho/openshift-cartridge-play2&commit=play-2.5.0
+rhc app create  myappForPlay  http://cartreflect-claytondev.rhcloud.com/reflect?github=nicoswan/openshift-play-quickstart-min
 ```
 
 You might need to increase the timeout to let it the time to download the activator and build the application the first time.
@@ -121,5 +123,3 @@ You might need to increase the timeout to let it the time to download the activa
 You need to have installed [Play](http://www.playframework.com/) on your development workstation.
 
 Simply launch ```activator run``` from your invite, and browse to http://localhost:9000/ to see the welcome page.
-
-[![Throughput Graph](https://graphs.waffle.io/tyrcho/openshift-cartridge-play2/throughput.svg)](https://waffle.io/tyrcho/openshift-cartridge-play2/metrics/throughput)
