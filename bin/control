@@ -61,6 +61,7 @@ function start {
       fi
       if [ ! -f "$OPENSHIFT_PLAY2_DIR/app/run.sh" ]; then
            echo "$S_BIN_NAME -J-Xms128M -J-Xmx512m -Dapplication.home=${OPENSHIFT_DATA_DIR} -Duser.home=${OPENSHIFT_PLAY2_DIR} -Dhttp.port=${OPENSHIFT_PLAY2_PORT} -Dhttp.address=${OPENSHIFT_PLAY2_IP} -Dconfig.file=${S_APPLICATION_CONF} -Dplay.crypto.secret="$S_PLAY_CRYPTO_SECRET" -Dpidfile.path=${PLAY2_PID_RUN} -Dplay.evolutions.autoApply=true -Dlogger.resource=prod-logback.xml" > $OPENSHIFT_PLAY2_DIR/app/run.sh
+           chmod +x $OPENSHIFT_PLAY2_DIR/app/run.sh
       fi
       nohup $OPENSHIFT_PLAY2_DIR/app/run.sh >> $OPENSHIFT_PLAY2_LOG_DIR/play.log 2>&1 &
     else
