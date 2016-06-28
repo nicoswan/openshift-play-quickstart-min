@@ -10,7 +10,7 @@ Cartridge-Version: '1.0.0'
 Cartridge-Vendor: github
 Website: https://github.com/nicoswan/openshift-play-quickstart-min
 Help-Topics:
-  "Developer Center": Aretsi Developers
+  "Developer Center": 'Aretsi Developers'
 Categories:
   - service
   - play
