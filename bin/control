@@ -56,6 +56,9 @@ function start {
       local S_APPLICATION_CONF=$(find $S_DIST_UNZIPPED -type f -name openshift.conf | head -n 1)
       local S_RESOURCE_CONF=$(find $S_DIST_UNZIPPED -type f -name openshift.conf | head -n 1)
       echo "$S_BIN_NAME -J-Xms128M -J-Xmx512m -Dapplication.home=${OPENSHIFT_DATA_DIR} -Duser.home=${OPENSHIFT_PLAY2_DIR} -Dhttp.port=${OPENSHIFT_PLAY2_PORT} -Dhttp.address=${OPENSHIFT_PLAY2_IP} -Dconfig.file=${S_APPLICATION_CONF} -Dplay.crypto.secret="$S_PLAY_CRYPTO_SECRET" -Dpidfile.path=${PLAY2_PID_RUN} -Dplay.evolutions.autoApply=true -Dlogger.resource=prod-logger.xml"
+      if [ ! ( -f "$S_DIST_FILE" ) ]; then
+           echo "$S_BIN_NAME -J-Xms128M -J-Xmx512m -Dapplication.home=${OPENSHIFT_DATA_DIR} -Duser.home=${OPENSHIFT_PLAY2_DIR} -Dhttp.port=${OPENSHIFT_PLAY2_PORT} -Dhttp.address=${OPENSHIFT_PLAY2_IP} -Dconfig.file=${S_APPLICATION_CONF} -Dplay.crypto.secret="$S_PLAY_CRYPTO_SECRET" -Dpidfile.path=${PLAY2_PID_RUN} -Dplay.evolutions.autoApply=true -Dlogger.resource=prod-logger.xml" > $OPENSHIFT_PLAY2_DIR/bin/run.sh
+      fi
       nohup $S_BIN_NAME -J-Xms128M -J-Xmx512m -Dapplication.home=${OPENSHIFT_DATA_DIR} -Duser.home=${OPENSHIFT_PLAY2_DIR} -Dhttp.port=${OPENSHIFT_PLAY2_PORT} -Dhttp.address=${OPENSHIFT_PLAY2_IP} -Dconfig.file=${S_APPLICATION_CONF} -Dplay.crypto.secret="$S_PLAY_CRYPTO_SECRET" -Dpidfile.path=${PLAY2_PID_RUN} -Dplay.evolutions.autoApply=true >> $OPENSHIFT_PLAY2_LOG_DIR/play.log 2>&1 &
     else
       echo "Distribution file [$S_DIST_FILE] not found, start skipped"
