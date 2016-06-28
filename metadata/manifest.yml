@@ -10,16 +10,12 @@ Cartridge-Version: '1.0.0'
 Cartridge-Vendor: github
 Website: https://github.com/nicoswan/openshift-play-quickstart-min
 Help-Topics:
-  "Developer Center": https://www.openshift.com/developers
+  "Developer Center": Aretsi Developers
 Categories:
   - service
   - play
-  - scala
-  - web_framework
-  - activator
 Provides:
   - play2
-  - activator
 Scaling:
   Min: 1
   Max: -1
@@ -56,7 +52,6 @@ Cart-Data:
 Group-Overrides:
   - components:
     - play2
-    - activator
     - web_proxy
 Publishes:
   get-doc-root:
