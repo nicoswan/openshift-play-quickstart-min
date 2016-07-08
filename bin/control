@@ -59,8 +59,14 @@ function start {
       if [ ! -d "$OPENSHIFT_PLAY2_DIR/app" ]; then
           mkdir $OPENSHIFT_PLAY2_DIR/app
       fi
+      if [ ! -d "$OPENSHIFT_PLAY2_DIR/conf" ]; then
+          mkdir $OPENSHIFT_PLAY2_DIR/conf
+      fi
+      if [ ! -d "$OPENSHIFT_PLAY2_DIR/conf/openshift.conf" ]; then
+          cp $S_APPLICATION_CONF $OPENSHIFT_PLAY2_DIR/conf/
+      fi
       if [ ! -f "$OPENSHIFT_PLAY2_DIR/app/run.sh" ]; then
-           echo "$S_BIN_NAME -J-Xms128M -J-Xmx512m -Dapplication.home=${OPENSHIFT_DATA_DIR} -Duser.home=${OPENSHIFT_PLAY2_DIR} -Dhttp.port=${OPENSHIFT_PLAY2_PORT} -Dhttp.address=${OPENSHIFT_PLAY2_IP} -Dconfig.file=${S_APPLICATION_CONF} -Dplay.crypto.secret="$S_PLAY_CRYPTO_SECRET" -Dpidfile.path=${PLAY2_PID_RUN} -Dplay.evolutions.autoApply=true -Dlogger.resource=prod-logback.xml" > $OPENSHIFT_PLAY2_DIR/app/run.sh
+           echo "$S_BIN_NAME -J-Xms128M -J-Xmx512m -Dapplication.home=${OPENSHIFT_DATA_DIR} -Duser.home=${OPENSHIFT_PLAY2_DIR} -Dhttp.port=${OPENSHIFT_PLAY2_PORT} -Dhttp.address=${OPENSHIFT_PLAY2_IP} -Dconfig.file=${OPENSHIFT_PLAY2_DIR}/conf/openshift.conf -Dplay.crypto.secret="$S_PLAY_CRYPTO_SECRET" -Dpidfile.path=${PLAY2_PID_RUN} -Dplay.evolutions.autoApply=true -Dlogger.resource=prod-logback.xml" > $OPENSHIFT_PLAY2_DIR/app/run.sh
            chmod +x $OPENSHIFT_PLAY2_DIR/app/run.sh
       fi
       nohup $OPENSHIFT_PLAY2_DIR/app/run.sh >> $OPENSHIFT_PLAY2_LOG_DIR/play.log 2>&1 &
